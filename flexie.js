@@ -25,8 +25,9 @@
                 }
             }
             for(var c = 0; c < flexors.length; c++){
-                var calculatedSize = (parseFloat(flexors[c].getAttribute("data-flex-weight")||0) / totalWeight)*(flex["offset"+(direction?"Height":"Width")]-total);
-                    flexors[c].style[direction?"height":"width"] = calculatedSize+"px";
+                var calculatedSize = (parseFloat(flexors[c].getAttribute("data-flex-weight")||0) / totalWeight)*(flex["client"+(direction?"Height":"Width")]-total);
+		padding = flexors[c]["offset"+(direction?"Height":"Width")]-flexors[c]["client"+(direction?"Height":"Width")];
+                flexors[c].style[direction?"height":"width"] = (calculatedSize-padding)+"px";
             }
             
         }
