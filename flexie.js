@@ -1,4 +1,5 @@
 (function(){
+    var flexieCount = 0;
     var handleFlex =  function(){
         var flexies = document.querySelectorAll("[data-flex]");
         for(var i = 0; i < flexies.length; i++){
@@ -6,11 +7,13 @@
             // true is vertical, false is horizontal
             direction = (flex.getAttribute("data-flex-direction")||"vertical")=="vertical";
             //Ugly hack, querySelectorAll doesn't return an array, but an ArrayList, but this will force it into an array
-            //something else I need to fix in the future, this will return all children of flex that have data-flex-weight, instead of the direct children
-            flexors = [].slice.call(flex.querySelectorAll("[data-flex-weight]"));
-            var totalWeight = 0;
+	    // Create a temportary class to select the direct children of this flex node
+	    var tempClass = flex.className;
+	    flex.className+= " flexieUniqueClass"+(++flexieCount);
+            flexors = [].slice.call(flex.querySelectorAll(".flexieUniqueClass"+flexieCount+" > [data-flex-weight]"));
+            flex.className = tempClass;
+	    var totalWeight = 0;
             for(var c = 0; c < flexors.length; c++){
-                if(flexors[c].parentNode !== flex) continue;
                 totalWeight += parseFloat(flexors[c].getAttribute("data-flex-weight")||0);
             }
             var total = 0;
@@ -22,7 +25,6 @@
                 }
             }
             for(var c = 0; c < flexors.length; c++){
-                if(flexors[c].parentNode !== flex) continue;
                 var calculatedSize = (parseFloat(flexors[c].getAttribute("data-flex-weight")||0) / totalWeight)*(flex["offset"+(direction?"Height":"Width")]-total);
                     flexors[c].style[direction?"height":"width"] = calculatedSize+"px";
             }

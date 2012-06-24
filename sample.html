@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>test</title>
+<script src="flexie.js"></script>
+<style>
+html, body {
+	height: 100%;
+	margin: 0;
+}
+</style>
+</head>
+<body data-flex data-flex-direction="vertical">
+<div data-flex-weight="1">
+Hallo!
+</div>
+<div data-flex-weight="1" data-flex-direction="horizontal" data-flex>
+<div data-flex-weight="2" style="display: inline-block;">
+Wie Gehts!
+<!-- horizontal spacing won't work if there is a text node between elements.
+	This is one fix (No space between elements)
+	another is using "white-space: nowrap;" in the parent container.
+	also, it might be useful to add a CSS style that makes any div elements that have
+	[data-flex-weight] to be inline-block -->
+</div><div data-flex-weight="1" style="display: inline-block;">
+Ich bin seht besser!
+</div>
+</div>
+</body>
+</html>
