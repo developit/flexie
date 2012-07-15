@@ -1,3 +1,4 @@
+var resize;
 (function(){
     var flexieCount = 0;
     var handleFlex =  function(){
@@ -32,6 +33,7 @@
             
         }
     };
+    resize = handleFlex;
     window.addEventListener("resize",handleFlex, false);
     document.addEventListener("DOMContentLoaded", handleFlex, false);
     handleFlex();
